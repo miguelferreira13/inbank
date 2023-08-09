@@ -2,13 +2,19 @@
 
 ### How to use
 
-There is a `requirements.txt` file that can be used to install the dependencies for this project.
+Clone the repo git clone https://github.com/miguelferreira13/inbank.git
 
+##### Dependencies
+There is a `requirements.txt` file that can be used to install the dependencies for this project.
+Docker is need to execute the optional step mentioned below.
+
+##### Executing
 You can use the `make run` command to run the pipeline, it is divided in 3 steps, extract, transform and load.
 
+##### Optional
 The data is then written to the `netflix.db` and can be viewed and interacted with using the SQLite Browser.
 
-To run the SQLite Browser locally you can use `make start-sqlbrowser` and open [http://localhost:3000/](), click `open database` and select `netflix.db`, you can now browse the data and execute queries (some examples below).
+To run the SQLite Browser locally you can use `make start-sqlbrowser` and open http://localhost:3000, click `open database` and select `netflix.db`, you can now browse the data and execute queries (some examples below).
 
 
 
