@@ -3,12 +3,11 @@
 ### How to use
 
 ##### Install
-
 Clone the repo with `git clone https://github.com/miguelferreira13/inbank.git`
 
 ##### Dependencies
 There is a `requirements.txt` file that can be used to install the dependencies for this project.
-Docker is need to execute the optional step mentioned below.
+Docker is needed to execute the optional step mentioned below.
 
 ##### Executing
 You can use the `make run` command to run the pipeline, it is divided in 3 steps, extract, transform and load.
