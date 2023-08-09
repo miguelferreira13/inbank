@@ -2,7 +2,9 @@
 
 ### How to use
 
-Clone the repo git clone https://github.com/miguelferreira13/inbank.git
+##### Install
+
+Clone the repo with `git clone https://github.com/miguelferreira13/inbank.git`
 
 ##### Dependencies
 There is a `requirements.txt` file that can be used to install the dependencies for this project.
