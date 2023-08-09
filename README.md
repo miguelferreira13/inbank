@@ -16,29 +16,29 @@ To run the SQLite Browser locally you can use `make start-sqlbrowser` and open [
 
 1.` Construct a normalized data model for the dataset provided.`
 
-    I decided to create 3 main tables to store the data: Users, Subscriptions, Activity.
-    We could use another table for devices and even one more for profiles, which would be a better approach if we would have multiple devices per user, or the data wouldn't be aggregated.
+I decided to create 3 main tables to store the data: Users, Subscriptions, Activity.
+We could use another table for devices and even one more for profiles, which would be a better approach if we would have multiple devices per user, or the data wouldn't be aggregated.
 
 2.` Load the data into the data model you constructed and into DB engines like
 MySQL/SQLite/Postgres or some free online one using the ELT approach (Extra points if you
 use Python and SQL in combination to achieve this task). How would you make such loading
 repeatable on a regular basis?`
 
-    2.1 - I choose SQLite for simplicity and easier reproducibility, I used Python and SQL as advised, and added an interface to visualize the data and reproduce the queries.
-    
-    2.2 - In order to make this loading repeatable, we could have the this script fetch the data from a cloud storage and schedule it to run as often as we would like using Jenkins, Airflow or similar. We could upload the file directly to this repo, overriding the original and following the same scheduling referred above. 
+2.1 - I choose SQLite for simplicity and easier reproducibility, I used Python and SQL as advised, and added an interface to visualize the data and reproduce the queries.
+
+2.2 - In order to make this loading repeatable, we could have the this script fetch the data from a cloud storage and schedule it to run as often as we would like using Jenkins, Airflow or similar. We could upload the file directly to this repo, overriding the original and following the same scheduling referred above. 
     
 3.` What control measures could be deployed here to ensure the correctness of data? Do
 you notice something odd about the dataset provided?`
 
-    3.1 - Data validation to check for missing values, data types, and ensure data conforms to predefined rules.
-    Use foreign key constraints to maintain the relationships between tables.
-    Regular data quality checks by implementing automated scripts to periodically validate and clean the data.
+3.1 - Data validation to check for missing values, data types, and ensure data conforms to predefined rules.
+Use foreign key constraints to maintain the relationships between tables.
+Regular data quality checks by implementing automated scripts to periodically validate and clean the data.
 
-    3.2 - The fact that each user is only associtated with one device.
-    There are 6 outlier values in the age column (2, 15, 17, 26, 107, 904).
-    The number of users per country is the same for several countries, but that's probably because it's a fake dataset, the same for other columns.
-    The fact that many users start on the same dates, but there are dates when only a single user joins, can be explained by promotional campaigns.
+3.2 - The fact that each user is only associtated with one device.
+There are 6 outlier values in the age column (2, 15, 17, 26, 107, 904).
+The number of users per country is the same for several countries, but that's probably because it's a fake dataset, the same for other columns.
+The fact that many users start on the same dates, but there are dates when only a single user joins, can be explained by promotional campaigns.
 
 
 4. `Write queries for answering the following questions:`
