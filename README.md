@@ -86,12 +86,11 @@ The fact that many users start on the same dates, but there are dates when only 
     ```sql
     SELECT 
         s.country,
-		SUM(a.active_profiles - a.household_profile_ind) n_outside_household
+		SUM(u.active_profiles - u.household_profile_ind) n_outside_household
     FROM users u
     JOIN subscriptions s ON s.id = u.subscription_id
-    JOIN activity a ON a.user_id = u.id
     WHERE
-        a.active_profiles > a.household_profile_ind
+        u.active_profiles > u.household_profile_ind
     GROUP BY s.country
     ORDER BY n_outside_household DESC
     ```
@@ -126,6 +125,6 @@ The fact that many users start on the same dates, but there are dates when only 
 
 ## Comments
 
-On production I would opt for using MySQL or Postgres, include a migration folder with the queries for table creation.
+In production I would opt for a more robust soltution like MySQL or Postgres and include a migration folder with the queries for table creation.
 The job would also be reading the csv from a cloud storage solution to make it easier for anyone to update, unit tests and integration tests would also be inlcuded and a workflow management tool integration to schedule the process.
 If there was more processing to be done and transformation then probably each step should have his own file and class as well.
