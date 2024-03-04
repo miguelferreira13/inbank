@@ -1,0 +1,4 @@
+ETL:
+  DATASET: data/netflix_dataset.csv
+  DB: netflix.db
+  SQL_SCHEMA_FILE: netflix_etl/sql/schema.sql

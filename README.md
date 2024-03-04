@@ -1,25 +1,26 @@
-# Netflix
+# Netflix ETL
+An ETL pipeline for a Netflix dataset.
 
-### How to use
+## Getting started
 
-##### Install
-Clone the repo with `git clone https://github.com/miguelferreira13/inbank.git`
+### Install
+Clone the repo with `git clone https://github.com/miguelferreira13/netflix.git`
 
-##### Dependencies
+### Dependencies
 There is a `requirements.txt` file that can be used to install the dependencies for this project.
 Docker is needed to execute the optional step mentioned below.
 
-##### Executing
+### Executing
 You can use the `make run` command to run the pipeline, it is divided in 3 steps, extract, transform and load.
 
-##### Optional
+### Optional
 The data is then written to the `netflix.db` and can be viewed and interacted with using the SQLite Browser.
 
 To run the SQLite Browser locally you can use `make start-sqlbrowser` and open http://localhost:3000, click `open database` and select `netflix.db`, you can now browse the data and execute queries (some examples below).
 
 
 
-### Assignment
+## Assignment
 
 1.` Construct a normalized data model for the dataset provided.`
 
@@ -31,15 +32,15 @@ MySQL/SQLite/Postgres or some free online one using the ELT approach (Extra poin
 use Python and SQL in combination to achieve this task). How would you make such loading
 repeatable on a regular basis?`
 
-2.1 - I choose SQLite for simplicity and easier reproducibility, I used Python and SQL as advised, and added an interface to visualize the data and reproduce the queries.
+2.1 - I choose SQLite for simplicity and easier reproducibility, and Python as advised, I also added an interface to visualize the data and reproduce the queries.
 
-2.2 - In order to make this loading repeatable, we could have the this script fetch the data from a cloud storage and schedule it to run as often as we would like using Jenkins, Airflow or similar. We could upload the file directly to this repo, overriding the original and following the same scheduling referred above. 
+2.2 - In order to make this loading repeatable, we could have this script fetch the data from a cloud storage and schedule it to run as often as we would like using Airflow or a similar tool. We could upload the file directly to this repo, overriding the original and following the same scheduling referred above. 
     
 3.` What control measures could be deployed here to ensure the correctness of data? Do
 you notice something odd about the dataset provided?`
 
 3.1 - Data validation to check for missing values, data types, and ensure data conforms to predefined rules.
-Use foreign key constraints to maintain the relationships between tables.
+Use foreign key and constraints to maintain the relationships between tables.
 Regular data quality checks by implementing automated scripts to periodically validate and clean the data.
 
 3.2 - The fact that each user is only associtated with one device.
@@ -48,10 +49,10 @@ The number of users per country is the same for several countries, but that's pr
 The fact that many users start on the same dates, but there are dates when only a single user joins, can be explained by promotional campaigns.
 
 
-4. `Write queries for answering the following questions:`
+1. `Write queries for answering the following questions:`
 
-    #### a. The most profitable country for Netflix.
-    ```
+    ### a. The most profitable country for Netflix.
+    ```sql
     SELECT 
         s.country,
         SUM(s.monthly_revenue) revenue
@@ -65,8 +66,8 @@ The fact that many users start on the same dates, but there are dates when only 
 
     ![Query 4a](screenshots/4a.png)
 
-    #### b. The most popular packages per country.
-    ```
+    ### b. The most popular packages per country.
+    ```sql
     SELECT 
         s.country,
         s.subscription_type,
@@ -81,8 +82,8 @@ The fact that many users start on the same dates, but there are dates when only 
 
     ![Query 4b](screenshots/4b.png)
 
-    #### c. Which country has the potential for improving earnings if Netflix starts charging subscribers an additional fee for sharing Netflix households outside of their own?
-    ```
+    ### c. Which country has the potential for improving earnings if Netflix starts charging subscribers an additional fee for sharing Netflix households outside of their own?
+    ```sql
     SELECT 
         s.country,
 		SUM(a.active_profiles - a.household_profile_ind) n_outside_household
@@ -100,8 +101,8 @@ The fact that many users start on the same dates, but there are dates when only 
 
     ![Query 4c](screenshots/4c.png)
 
-    #### d. A report showing the popularity of Movies and Series in different customer segments and the device used to consume, across the different markets the company operates in.
-    ```
+    ### d. A report showing the popularity of Movies and Series in different customer segments and the device used to consume, across the different markets the company operates in.
+    ```sql
     SELECT 
         s.country,
 		u.device,
@@ -123,8 +124,8 @@ The fact that many users start on the same dates, but there are dates when only 
 
     ![Query 4d](screenshots/4d.png)
 
-### Comments
+## Comments
 
-On production I will probably opt for using MySQL or Postgres, include a migration folder with the queries for table creation and defined keys, foreign keys, contraints, indexes, etc.
-The job would also be reading the file from a cloud storage solution to make it easier for anyone to update, unit tests and integration tests would also be inlcuded and a workflow management tool integration to schedule the process.
-If there was more processing to be done and transformation then probably each step should have his own file as well.
+On production I would opt for using MySQL or Postgres, include a migration folder with the queries for table creation.
+The job would also be reading the csv from a cloud storage solution to make it easier for anyone to update, unit tests and integration tests would also be inlcuded and a workflow management tool integration to schedule the process.
+If there was more processing to be done and transformation then probably each step should have his own file and class as well.
